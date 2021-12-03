@@ -50,7 +50,7 @@ puts "hello".split("") # returns ["h", "e", "l", "l", "o"]
 puts "   hello   ".strip # returns "hello"
 
 # ------------------- THINGS TO LOOK UP --------------------
-# sub, gsub, inset, delete, prepend, gsub!
+# sub, gsub, insert, delete, prepend, gsub!
 
 # ------------------- SYMBOLS --------------------
 # strings can be changed, so when used ruby has to store it in memory even if an existing string with the same value already exists
