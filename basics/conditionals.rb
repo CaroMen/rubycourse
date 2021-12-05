@@ -49,3 +49,47 @@ first_float = 5.0
 second_float = 5.0
 
 puts first_float.equal?(second_float) # same situation as above
+
+# Special operator known as spaceship operator
+# returns -1 if the value on the left is less than the value on the right
+# returns 0 if the values are equal
+# returns 1 if the value on the left is greater than the value on the right
+
+10 <=> 10 # returns 0
+5 <=> 10 # returns -1
+15 <=> 10 # returns 1
+
+# ------------------------------ CASE STATEMENTS ------------------------------
+=begin
+  - process each condition in turn, and if the condition returns false, it will move to the next one until a match is found
+  - an else clause works as a default if no match is found
+  - you can assign the result of a case statement to a variable
+=end
+
+grade = 'B'
+
+did_i_pass = case grade
+  when 'A'
+    'hell yeah'
+  when 'B'
+    'not bad'
+  when 'C'
+    'you can do better'
+  when 'D'
+    'you need to study'
+  else
+    'you failed'
+end
+
+puts did_i_pass
+
+# ------------------------------ UNLESS STATEMENTS ------------------------------
+# works in the opposite way of an if statement
+# will only process code if the expression evaluates to false
+# use an unless statement when you want to not do something if a condition is true
+
+age = 23
+
+unless age < 18 # 23 > 18, so this is false
+  puts "here"
+end
