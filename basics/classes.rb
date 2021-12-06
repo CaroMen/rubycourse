@@ -44,6 +44,8 @@ end
 
 # ------------------------------ Modules ------------------------------
 # Modules are a way to group methods and constants together
+#  - they can be mixed in to a ruby class
+#  - we use modules to collect methods that may be mixed in and shared by many classes to DRY up our code
 module MyModule
   def my_method
 
