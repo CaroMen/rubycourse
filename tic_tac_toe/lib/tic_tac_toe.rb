@@ -30,7 +30,57 @@ class TicTacToe
     @board[index] = current_player
   end
 
-  def position_taken?
-    @board[@user_choice] == "X" || @board[@user_choice] == "O"
+  def position_taken?(index_value)
+    # if @board[index_value] == " "
+    #   false
+    # elsif @board[index_value] == "X" || @board[index_value] == "O"
+    #   true
+    # end
+    @board[index_value] == "X" || @board[index_value] == "O"
   end
+
+  def valid_move?(position)
+    # if @board[position] == " "
+    #   true
+    # else
+    #   false
+    # end
+
+    # @board[position] == " "
+
+    @board[position] && !position_taken?(position)
+  end
+
+  def turn_count
+    count = 0
+    @board.each do |position|
+      if position == "X" || position == "O"
+        count += 1
+      end
+    end
+    count
+  end
+
+  def current_player
+    current_player = turn_count.even? ? "X" : "O"
+    current_player
+  end
+
+  # def turn
+  #   # get user input
+  #   puts "Please enter 1-9:"
+  #   input = gets.strip
+
+  #   # set @user_choice to user input
+  #   input_to_index(input)
+
+  #   # check if input is valid
+  #   if valid_move?(@user_choice)
+  #     # use move method
+  #     move(@user_choice, current_player)
+  #     display_board
+  #   else
+  #     turn
+  #   end
+  # end
 end
