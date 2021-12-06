@@ -11,3 +11,16 @@ def by_two?(number)
 end
 
 by_two?(12)
+
+# -------------------- predicate methods ----------------------
+=begin
+  - a naming convention for methods that return true or false
+  - you can also create your own method with a ? at the end that indicates it's a predicate method
+=end
+
+puts 5.even?
+puts 4.even?
+puts 10.odd?
+puts 21.odd?
+
+puts 12.between?(10, 20)
