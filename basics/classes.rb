@@ -47,6 +47,46 @@ end
 module MyModule
   def my_method
 
+# one of the main purposes is to separate methods and costants into named spaces
+#   - also called namespacing
+# the double colon used in ruby is called the scope resolution operator
+#   - by doing Math::PI, ruby will know to look inside the math module to get the PI
+
+# require methods
+#  - require is a method that will load a file
+#  - we just do "require 'date'" or whatever other module we need
+
+# include methods
+#  - include is a method that will include a module into a class
+#  - we just do "include 'module'" inside the class
+
+module Action
+  def jump
+    @distance = rand(4) + 2
+    puts "I jumped forward #{@distance} feet!"
+  end
+end
+
+class Rabbit
+  include Action
+  attr_reader :name
+  def initialize(name)
+    @name = name
+  end
+end
+
+class Cricket
+  include Action
+  attr_reader :name
+  def initialize(name)
+    @name = name
+  end
+end
+
+# "include" mixes a module's methods in at the instance level (allowing instances of a particular class to use the methods)
+# "extend" mixes a module's methods in at the class leve
+#   - a class itself can use the methods as opposed to instances of the class
+
 # ------------------------------ Example ------------------------------
 class Message
   @@messages_sent = 0
