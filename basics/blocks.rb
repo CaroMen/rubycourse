@@ -46,3 +46,28 @@ def your_name(name)
 end
 
 your_name("Caro") { |n| puts "#{n}"}
+
+puts " "
+puts " "
+puts " "
+
+# -------------------------------- LAMBDAS --------------------------------
+# a way to write a block and save it to a variable
+# useful if you're calling diff methods but passing in the same block
+# to call a lambda you need to use the #call method
+
+# two ways to create a lambda
+new_lambda = lambda { puts "this is one way" }
+new_lambda.call
+
+other_lambda = -> { puts "this is another way" }
+other_lambda.call
+
+# -------------------------------- PROCS --------------------------------
+# an object we can use to store blocks and pass them around like variables
+
+# declaring a new proc
+new_proc = Proc.new { puts "this is a proc" }
+
+# called the same way as lambdas
+new_proc.call
