@@ -26,7 +26,7 @@ class TicTacToe
     @user_choice = user_input.to_i - 1
   end
 
-  def move(index, current_player = "X")
+  def move(index, current_player)
     @board[index] = current_player
   end
 
@@ -40,47 +40,59 @@ class TicTacToe
   end
 
   def valid_move?(position)
-    # if @board[position] == " "
-    #   true
-    # else
-    #   false
-    # end
-
-    # @board[position] == " "
-
-    @board[position] && !position_taken?(position)
+    # @board[position] && !position_taken?(position)
+    position.between?(0,8) && !position_taken?(position)
   end
 
   def turn_count
-    count = 0
-    @board.each do |position|
-      if position == "X" || position == "O"
-        count += 1
-      end
-    end
-    count
+    @board.count { |i| i != " "}
   end
 
   def current_player
-    current_player = turn_count.even? ? "X" : "O"
-    current_player
+    turn_count.even? ? "X" : "O"
   end
 
-  # def turn
-  #   # get user input
-  #   puts "Please enter 1-9:"
-  #   input = gets.strip
+  def turn
+   puts "Please enter 1 - 9"
+    input = gets.strip
+    index = input_to_index(input)
+    if valid_move?(index)
+      token = current_player
+      move(index, token)
+    else
+      turn
+    end
+    display_board
+  end
 
-  #   # set @user_choice to user input
-  #   input_to_index(input)
+  def won?
+    WIN_COMBINATIONS.any? do |combo|
+      if position_taken?(combo[0]) && @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]
+        return combo
+      end
+    end
+  end
 
-  #   # check if input is valid
-  #   if valid_move?(@user_choice)
-  #     # use move method
-  #     move(@user_choice, current_player)
-  #     display_board
-  #   else
-  #     turn
-  #   end
-  # end
+  def full?
+    @board.all? { |i| i != " "}
+  end
+
+  def draw?
+    !won? && full?
+  end
+
+  def over?
+    won? || full?
+  end
+
+  def winner
+    if won?
+      @board[won?[0]]
+    end
+  end
+
+  def play
+    turn until over?
+    puts winner ? "Congratulations #{winner}!" : "Cats Game!"
+  end
 end
