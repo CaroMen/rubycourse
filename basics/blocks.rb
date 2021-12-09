@@ -96,19 +96,25 @@ raises_error = lambda { |a, b| puts "#{a} and #{b}"}
 raises_error.call(1, 2)
 
 # writing an explicit return inside a lambda, it will return from the lambda block back to the caller
-a_lambda = -> { return "this is a lambda"}
-a_lambda.call
+# a_lambda = -> { return "this is a lambda"}
+# a_lambda.call
 
 # a proc object returns from the context in which it is called
-a_prob = Proc.new { return }
-a_prob.call
+# a_prob = Proc.new { return }
+# a_prob.call
 
 # SIMILARITIES
 # both support default arguments the same way Ruby methods do
 # both can be used as arguments to a method
 
-# Capturing blocks
+puts " "
+puts " "
+puts " "
+
+# -------------------------------- CAPTURING BLOCKS --------------------------------
 # blocks are anonymous methods
+# sometimes we want to capture a reference to a block to do something with it later
+# maybe we need to receive a block now and store it in an instance variable  for later
 # the way we can capture blocks is by using the & operator
 # if a method uses other parameters, the block-capturing & should always go last
 # capturing a block with an & is known as an explicit block
@@ -117,6 +123,38 @@ def this_method(&block)
   block.call
 end
 
-my_block = -> { puts "this is a new block" }
+this_method { puts "test this block" }
 
-this_method(&my_block)
+def second_method(&block)
+  block.call
+end
+
+new_block = Proc.new { puts "this is another block" }
+
+second_method(&new_block)
+
+def explicit_block(&block)
+  block.call
+end
+
+explicit_block { puts "this is an explicit block" }
+
+puts " "
+puts " "
+puts " "
+
+# -------------------------------- PRETZEL COLON --------------------------------
+# we can do something like this
+array = ["a", "ab", "abc", "abcd"]
+
+puts array.map { |string| string.length }
+# we can iterate through the array variable and grab the length of each string in the array
+# and then a new array is returned
+
+# but we can simplify this with a pretzel colon
+new_array = array.map(&:length)
+puts new_array
+
+# this isn't just "&", ":" and "length"
+# we pass in length as the symbol :length
+# the symbol has a method called Symbol#to_proc which will send the object in the array through to the block wi
