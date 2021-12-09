@@ -65,9 +65,58 @@ other_lambda.call
 
 # -------------------------------- PROCS --------------------------------
 # an object we can use to store blocks and pass them around like variables
+# doesn't care how many arguments you pass it or if you pass any at all
+# will assign nil to any parameters that you don't pass it but name
 
 # declaring a new proc
 new_proc = Proc.new { puts "this is a proc" }
 
 # called the same way as lambdas
 new_proc.call
+
+# both blocks and lambdas can be passed as arguments to methods
+def call_lambda_or_proc(lambda_or_proc)
+  lambda_or_proc.call
+end
+
+lambda_to_call = -> { puts 2 * 8}
+
+call_lambda_or_proc(lambda_to_call)
+
+# -------------------------------- PROCS VS LAMBDAS --------------------------------
+# DIFFERENCES
+# procs don't care about the number of arguments you pass them or if you pass any at all
+#   - it will assign nil to any parameters that you don't pass through as arguments
+nested_array = [[1, 2], [3, 4], [5, 6]]
+nested_array.select { |a, b| a + b > 4 } # <- this gets treated as a non-lambda proc
+
+# a lambda will care about the number of arguments you pass it
+#   - it will raise an error if you don't pass the expected number of arguments
+raises_error = lambda { |a, b| puts "#{a} and #{b}"}
+raises_error.call(1, 2)
+
+# writing an explicit return inside a lambda, it will return from the lambda block back to the caller
+a_lambda = -> { return "this is a lambda"}
+a_lambda.call
+
+# a proc object returns from the context in which it is called
+a_prob = Proc.new { return }
+a_prob.call
+
+# SIMILARITIES
+# both support default arguments the same way Ruby methods do
+# both can be used as arguments to a method
+
+# Capturing blocks
+# blocks are anonymous methods
+# the way we can capture blocks is by using the & operator
+# if a method uses other parameters, the block-capturing & should always go last
+# capturing a block with an & is known as an explicit block
+#   - when you don't name it in the parameter list, it's known as an implicit block
+def this_method(&block)
+  block.call
+end
+
+my_block = -> { puts "this is a new block" }
+
+this_method(&my_block)
