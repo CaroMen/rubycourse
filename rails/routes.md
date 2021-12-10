@@ -114,3 +114,36 @@ class PostsController < ApplicationController
 resources :posts, only: [:index, :show]
 resources :users, except: [:index]
 ```
+
+#### Name spaces
+
+- you may want to organize a group of controllers
+- you can do this with `namespace`
+
+```ruby
+namespace :admin do
+  resources :articles, :comments
+end
+```
+
+#### Nested Resources
+
+- you can have this scenario:
+
+```ruby
+class Magazine < ApplicationRecord
+  has_many :ads
+end
+
+class Ad < ApplicationRecord
+  belongs_to :magazine
+end
+```
+
+- using nested routes will allow you to capture the relationship in your routing
+
+```ruby
+resources :magazines do
+  resources :ads
+end
+```
